@@ -38,7 +38,7 @@ if(last === f){
 	getStat(f)
 
 	}
-	else if	(last < f && accNum < lent) {
+	else if	(last < f) {
 		console.log(`=============== БЛОГ ОБРАБОТАН ПОЛНОСТЬЮ =================`)
 		
 		fs.appendFile('blog.txt', blogs, function (err) {
