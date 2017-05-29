@@ -5,26 +5,32 @@ const golos = require('steem')
 const fs = require('fs')
 golos.config.set('websocket','wss://ws.golos.io');
 
-const account = "sxiii"
+const account = "vik"
 let l = 2000
 let f = l
 let blogs = []
-
+let permlinks = []
 
 const getStat = (f) =>{
 	golos.api.getAccountHistory(account, f, l, function(err, result) {
 	if (err){console.log(err)}
 	
-	for (name of result){
-		let block = name[1].block
+	for (item of result){
+		let block = item[1].block
 		
-		 if(name[1].op[0] === 'comment'){
-			if (name[1].op[1]['parent_author'] === ""){
+		 if(item[1].op[0] === 'comment'){
+			if (item[1].op[1]['parent_author'] === ""){
 		 
-			let blogposts = name[1].op[1]['title']
+			let blogposts = item[1].op[1]['title']
+			let link = item[1].op[1]['permlink']
 		 
-			blogs.push(blogposts)
-			console.log(blogposts)
+		 if(!permlinks.includes(link)){
+			 blogs.push(blogposts)
+			 console.log(blogposts)
+		 }
+			
+			permlinks.push(link)
+			
 			
 			}
 		}
@@ -37,14 +43,9 @@ if(last === f){
 
 	}
 	else if	(last < f) {
-		console.log(`=============== БЛОГ ОБРАБОТАН ПОЛНОСТЬЮ =================`)
-		
+		console.log(`=============== БЛОГ ОБРАБОТАН ПОЛНОСТЬЮ, ЗАГОЛОВКИ ЗАПИСАНЫ В ФАЙЛ blog.txt =================`)
 		fs.appendFile('blog.txt', blogs, function (err) {
-		  if (err) {
-			console.log(err)
-		  } else {
-			
-		  }
+		  if (err) {console.log(err)}
 		  })
 		
 			
