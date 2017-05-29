@@ -19,7 +19,7 @@ const getStat = (f) =>{
 		let block = name[1].block
 		let isPOST = name[1].op[0] === 'comment'
 		 if(isPOST){
-			if (name[1].op[1]['parent_author'][0] == "sxiii"){
+			if (name[1].op[1]['parent_author'][0] == ""){
 		 
 			let blogposts = name[1].op[1]['title'][0]
 		 
