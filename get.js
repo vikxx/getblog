@@ -17,16 +17,14 @@ const getStat = (f) =>{
 	
 	for (name of result){
 		let block = name[1].block
-		let isPOST = name[1].op[0] === 'comment'
-		 if(isPOST){
-			if (name[1].op[1]['parent_author'][0] == ""){
+		
+		 if(name[1].op[0] === 'comment'){
+			if (name[1].op[1]['parent_author'] === ""){
 		 
-			let blogposts = name[1].op[1]['title'][0]
+			let blogposts = name[1].op[1]['title']
 		 
 			blogs.push(blogposts)
 			console.log(blogposts)
-			
-			}else{
 			
 			}
 		}
